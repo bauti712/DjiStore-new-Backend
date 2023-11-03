@@ -24,6 +24,18 @@ router.get("/productosMas100", (_: Request, res: Response) => {
 });
 
 //punto(3)
+router.put("/actualizarProducto/:producto", (req, res) => {
+    const { nombre, nuevoProducto } = req.body;
+    const indiceProducto = productoyMercancia.findIndex(producto => producto.nombre === nombre);
+    if (indiceProducto === -1) {
+        console.log("Producto no encontrado.");
+        res.status(404).json({ mensaje: "Producto no encontrado" });
+    }
+    productoyMercancia[indiceProducto] = nuevoProducto;
+    console.log("Producto actualizado exitosamente.");
+    res.status(200).json({ mensaje: "Producto actualizado exitosamente" });
+});
+
 
 
 //punto(4)
@@ -73,7 +85,20 @@ router.get('/productos/porPrecio/:Precio',(req: Request, res: Response) =>{
 
 });
 
-export default router;
+
 
 //punto(7)
+router.post ('/productos/agregar', (req: Request, res: Response)=>{
+    const {nombre, modelo, Precio, paisOrigen} = req.body;
+    if (nombre && modelo && Precio && paisOrigen) {
+        const productoNuevo ={ nombre, modelo, Precio,paisOrigen};
+        productoyMercancia.push(productoNuevo);
+        res.send ("el producto fue creado");
+    }else {
+        res.status(404).send("no se encontro el elemento");
+    }
+
+});
+
+export default router;
 
