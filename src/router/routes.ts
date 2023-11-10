@@ -1,4 +1,5 @@
 import { Router, Request, Response } from "express";
+import { getProducts } from '../controlers/controlers';
 const router: Router = Router();
 
 router.get("/", (_, res) => {
@@ -13,10 +14,13 @@ let productoyMercancia = [
 ];
 
 //punto (1)
-router.get("/productos", (_: Request, res: Response) => {
-    res.send(productoyMercancia);
+// router.get("/productos", (_: Request, res: Response) => {
+//     res.send(productoyMercancia);
     
-});
+// });
+
+router.get("/productos", getProducts);
+
 //punto (2)
 router.get("/productosMas100", (_: Request, res: Response) => {
     const productosFiltrados = productoyMercancia.filter(producto => producto.Precio > 100);
